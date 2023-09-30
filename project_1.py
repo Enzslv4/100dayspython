@@ -1,4 +1,7 @@
-print('Hello World')
+# first project at the course: Band name
 
-for a in range(10):
-  print(a)
+city_name = input('What is the name of the city that u grew up? ')
+pet_name = input('What is your pet name? ')
+
+print()
+print('Your rock band name is', city_name, pet_name)
