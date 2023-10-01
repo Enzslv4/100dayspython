@@ -11,6 +11,12 @@ if total_bill.isdigit() and total_people.isdigit() and percentage.isdigit():
     people_int = int(total_people)
     percentage_int = int(percentage)
     per_capta = bill_int / people_int
-    print(per_capta)
+    usable_perc = [10, 12, 15]
+    final_result = round(((percentage_int / 100 + 1) * per_capta), 2)
+    if percentage_int in usable_perc:
+        print(
+            'Each person should pay:', final_result)
+    else:
+        print('Wrong percentage.')
 else:
     print('Deu ruim')
