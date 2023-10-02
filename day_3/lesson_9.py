@@ -6,6 +6,7 @@ weight = float(input('Digit your weight: '))
 height = float(input('Digit your height: '))
 bmi = weight / height ** 2
 
+
 if bmi <= 18.5:
     print("U're underweight.")
 elif 18.5 < bmi <= 25:
