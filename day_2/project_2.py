@@ -22,7 +22,7 @@ while True:
     if bill_int and people_int and percentage_int:
         per_capta = bill_int / people_int
         usable_perc = [10, 12, 15]
-        final_result = round(((percentage_int / 100 + 1) * per_capta), 4)
+        final_result = round((percentage_int / 100 + 1) * per_capta, 2)
         if percentage_int in usable_perc:
             print('Each person should pay:', final_result)
             break
