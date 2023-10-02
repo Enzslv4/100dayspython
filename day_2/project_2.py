@@ -31,6 +31,6 @@ while True:
             print('Wrong percentage.')
             continue
     else:
-        #os.system('cls')
+        os.system('cls')
         print('You need to put a int or float number, try again.')
         continue
