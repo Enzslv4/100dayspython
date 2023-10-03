@@ -2,7 +2,7 @@
 
 year = int(input('Put a year right here: '))
 
-leap_4 = year % 4
+leap_4 = year % 4 # needless vars
 leap_100 = year % 100
 leap_400 = year % 400
 
