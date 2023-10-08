@@ -1,32 +1,17 @@
 # find the treasure
 
-line_1 = ['a1', 'a2', 'a3']
-line_2 = ['b1', 'b2', 'b3']
-line_3 = ['c1', 'c2', 'c3']
 
-paths = [line_1, line_2, line_3]
-x = 0
-y = 0
-print('Find the treasure.')
+line1 = ['a1', 'a2', 'a3']
+line2 = ['b1', 'b2', 'b3']
+line3 = ['c1', 'c2', 'c3']
 
-choice = input('Choose a way to go(left/right, up/down): ')
+map = [line1, line2, line3]
 
-available_choices = ['u', 'd', 'r', 'l']
+position = input()
 
-def game_logic(x, y):
-    if (x and y) < 4:
-        
+letter = position[0].lower()
+abc = ['a', 'b', 'c']
+letter_index = abc.index[letter]
+number_index = int(position[1]) - 1
 
-while True:
-    if choice in available_choices:
-        if choice == 'l':
-            position = paths[x][y - 1]
-    else:
-        print('Wrong arguments.')
-        restart = input('Do you need to restart?("y" or "n") ')
-        if restart == 'y':
-            continue
-        elif restart == 'n':
-            break
-        else:
-            break
+print(f'{line1}\n{line2}\n{line3}')
