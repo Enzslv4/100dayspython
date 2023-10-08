@@ -1,32 +1,58 @@
 # ramdomized paper, scissors and rock
 
+import os
 import random
 import math
 
 possibles_answers = [0, 1, 2]
-answers_names = ['Rock', 'Paper', 'Scissors']
-y = random.randint(0,2)
+answers_names = ['Rock ✊', 'Paper ✋', 'Scissors ✌️']
+
+
 
 print('Welcome to the game paper, scissors and rock.')
 print()
-print('Please chose one of them:')
-x = int(input('0 for Rock, 1 for Paper and 2 for Scissors: '))
-module_subtraction = int(math.fabs(x - y))
 
-if x in possibles_answers:
-    print('You choose: ', answers_names[x])
-    print('The computer answer is:', answers_names[y])
-    if x == y:
-        print('You Tied.')
-    elif module_subtraction == 1:
-        if x > y:
-            print('You Win!')
+score = 0
+
+while True:
+    print(f'The score is {score}/5 winnings.')
+    print('Please chose one of them:')
+    x = int(input('0 for Rock, 1 for Paper and 2 for Scissors: '))
+    y = random.randint(0,2)
+    module_subtraction = int(math.fabs(x - y))
+    if x in possibles_answers:
+        print('You choose: ', answers_names[x])
+        print('The computer answer is:', answers_names[y])
+        if x == y:
+            print('You Tied.')
+        elif module_subtraction == 1:
+            if x > y:
+                score += 1
+                print('You Win! 👏👏👏')
+            else:
+                score -= 1
+                print('You Lose 😭')
         else:
-            print('You Lose :(')
+            if x == 0:
+                score += 1
+                print('You Win! 👏👏👏')
+            else:
+                score -= 1
+                print('You Lose 😭')
     else:
-        if x == 0:
-            print('You Win!')
-        else:
-            print('You Lose :(')
-else:
-    print('Wrong argument, please try again.')
+        print('Wrong argument.')
+    if score < 0:
+        score = 0
+        print('Game over!')
+
+    reset = input('Do you wanna to try again? ')
+    if reset == 'y':
+        if score == 5:
+            print('Game Over, You Win! 👏👏👏')
+            print(f'The score is {score}/5 of winnings.')
+            break
+        os.system('cls')
+        continue
+    else:
+        print('You left the game 🚫.')
+        break
