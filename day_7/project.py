@@ -41,17 +41,31 @@ possible_words = [
 ]
 
 secret_word = possible_words[random.randint(0, len(possible_words))]
-underlined_word = ''
+underlined_word = []
 for i in range(0, len(secret_word)):
     underlined_word += '_'
+chances_left = 5
+print(secret_word)
 
 while True:
-    guessed_letter = input('Guess a letter: ')
-    if guessed_letter.isdigit():
+    print(*underlined_word)
+    guessed_letter = input('Guess a letter: ').lower()
+    if guessed_letter.isalpha():
         if guessed_letter in secret_word:
-            for a in secret_word:
-                ...
-
+            for x in range(0, len(secret_word)):
+                if guessed_letter in secret_word[x]:
+                    underlined_word[x] = guessed_letter
+            if '_' not in underlined_word:
+                print('You Win!!')
+                break
+            os.system('cls')
+        else:
+            chances_left -= 1
+            os.system('cls')
+            print('Wrong answer, Try again.')
+            if chances_left == 0:
+                print('Game over.')
+                break
     else:
         print('Please type a letter, Try again.')
 
