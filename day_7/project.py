@@ -56,7 +56,7 @@ while True:
                 if guessed_letter in secret_word[x]:
                     underlined_word[x] = guessed_letter
             if '_' not in underlined_word:
-                print('You Win!!')
+                print(secret_word, 'You Win!!', sep='\n')
                 break
             os.system('cls')
         else:
