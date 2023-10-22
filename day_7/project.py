@@ -40,15 +40,73 @@ possible_words = [
     'zigzag', 'zigzagging', 'zilch', 'zipper', 'zodiac', 'zombie'
 ]
 
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
 secret_word = possible_words[random.randint(0, len(possible_words))]
 underlined_word = []
 for i in range(0, len(secret_word)):
     underlined_word += '_'
-chances_left = 5
+chances_left = 6
 print(secret_word)
 
 while True:
-    print(*underlined_word)
+    print(stages[chances_left])
+    print('Your word is: ', *underlined_word)
     guessed_letter = input('Guess a letter: ').lower()
     if guessed_letter.isalpha():
         if guessed_letter in secret_word:
@@ -64,7 +122,7 @@ while True:
             os.system('cls')
             print('Wrong answer, Try again.')
             if chances_left == 0:
-                print('Game over.')
+                print(stages[chances_left], 'Game over.', sep='\n')
                 break
     else:
         print('Please type a letter, Try again.')
