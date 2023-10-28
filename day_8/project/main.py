@@ -21,10 +21,8 @@ elif decision == 'd':
     to_decrypt = input('Type your message: ')
 
     if to_decrypt.isalpha():
-        try:
-            shift_num = int(input('Type the shift number: '))
-        except ValueError:
-            print('Wrong argument.')
+        shift_num = input('Type the shift number: ')
+        int_check(shift_num)
         
         decrypter(to_decrypt, letters, shift_num, final_result)
         
