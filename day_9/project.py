@@ -26,7 +26,7 @@ while True:
     elif add_participant == 'n':
         system('cls')
         winner = winner_check(participants)
-        print('The winner is', winner)
+        print(f'The winner is {winner}, with a bid of ${participants[winner]}')
         break
 
     
