@@ -4,7 +4,7 @@ from resources import letters
 from functions import encrypter, decrypter, int_check
 from art import logo
 
-print(logo)
+
 decision = input('Type "e" to encrypt, or "d" to decrypt: ')
 final_result = []
 
