@@ -6,6 +6,7 @@ def encrypter(to_encrypt, letters, shift_num, final_result):
                     final_result += letters[index_letter + shift_num - 25]
                 else:
                     final_result += letters[index_letter + shift_num]
+    return final_result
 
 def decrypter(to_decrypt, letters, shift_num, final_result):
     for i in range(0, len(to_decrypt)):
@@ -15,3 +16,4 @@ def decrypter(to_decrypt, letters, shift_num, final_result):
                 final_result += letters[25 + index_letter - shift_num]
             else:
                 final_result += letters[index_letter - shift_num]
+    return final_result
