@@ -1,8 +1,10 @@
 # cesar cipher
 
 from resources import letters
-from day_8.project.functions import encrypter, decrypter, int_check
+from functions import encrypter, decrypter, int_check
+from art import logo
 
+print(logo)
 decision = input('Type "e" to encrypt, or "d" to decrypt: ')
 final_result = []
 
