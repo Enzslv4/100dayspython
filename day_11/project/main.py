@@ -1,25 +1,8 @@
 # blackjack game
 
 import random
-from functions import if_ace
-
-player_cards = []
-computer_cards = []
-
-cards_dict = {
-    'King': 10,
-    'Queen': 10,
-    'Jack': 10,
-    '9': 9,
-    '8': 8,
-    '7': 7,
-    '6': 6,
-    '5': 5,
-    '4': 4,
-    '3': 3,
-    '2': 2,
-    'Ace': 1
-}
+import functions
+import vars
 
 while True:
     start_game = input('Do you wanna start the game?("y" or "n")\n')
@@ -27,35 +10,42 @@ while True:
         break
     
     for i in range(0, 2):
-        player_cards.append(random.choice(list(cards_dict.items())))
-        computer_cards.append(random.choice(list(cards_dict.items())))
+        vars.player_cards.append(random.choice(list(vars.cards_options)))
+        vars.computer_cards.append(random.choice(list(vars.cards_options)))
         i += 1
 
-    print(if_ace(player_cards.keys()))
-
-    sum_player_cards = 0
-    for i in range(0, len(player_cards)):
-        sum_player_cards += player_cards[i][1]
-
-    print(sum_player_cards)
-
-    print(f'Your cards are "{player_cards[0][0]}" and "{player_cards[1][0]}"',
-            f'And one of the computers cards is "{player_cards[0][0]}"',
+    print(f'Your cards are "{vars.player_cards[0]}" and "{vars.player_cards[1]}"',
+            f'And one of the computers cards is "{vars.computer_cards[random.randint(0,1)]}"',
             sep='\n'
         )
+    
+    vars.player_cards = functions.treating_strs(vars.player_cards)
+    vars.computer_cards = functions.treating_strs(vars.computer_cards)
+    
+    for i in range(0, len(vars.player_cards)):
+        vars.sum_player_cards += vars.player_cards[i]
 
-    if sum_player_cards > 21:
-        print('Game Over! You lose!')
+    if vars.sum_player_cards > 21:
+        print('Game Over! You have over 21!')
         break
-    elif 1 and 10 in player_cards:
-        print('...')
+
+    
+    for i in range(0, len(vars.computer_cards)):
+        vars.sum_computer_cards += vars.computer_cards[i]
+
+    if vars.sum_computer_cards > 21:
+        print('You won! The computer has more than 21!')
+        break
 
     add_card = input('Do you want to add a new card?("y" or "n")\n')
 
     if add_card == 'y':
-        player_cards.append(random.choice(list(cards_dict.items())))
-        print('Your cards are:', *player_cards[0])
-    else:
-        ...
+        vars.player_cards.append(random.choice(list(vars.cards_dict.items())))
+        print('Your cards are:', *vars.player_cards[0])
+    elif add_card == 'n':
+        if vars.sum_player_cards > vars.sum_computer_cards:
+            print(f'You won! You had {vars.sum_player_cards}, and the computer had {vars.sum_computer_cards}')
+        else:
+            print(f'You lose! You had {vars.sum_player_cards}, and the computer had {vars.sum_computer_cards}')
     
 
