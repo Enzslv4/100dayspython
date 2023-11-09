@@ -21,6 +21,6 @@ def game_logic(x):
             chances_left -= 1
         elif guess == vars.numb_to_guess:
             clear_console('cls')
-            print('You win!')
+            print('You win! The number is:', vars.numb_to_guess)
             break
         print('Chances left:', chances_left)
