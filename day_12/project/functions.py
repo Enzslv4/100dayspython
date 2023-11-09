@@ -24,3 +24,6 @@ def game_logic(x):
             print('You win! The number is:', vars.numb_to_guess)
             break
         print('Chances left:', chances_left)
+
+    if chances_left == 0:
+        print('You Lose!, the number was:', vars.numb_to_guess)
