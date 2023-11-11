@@ -1,5 +1,7 @@
 # coffe machine
 
+
+from art import *
 from vars import *
 from functions import start_machine, machine_logic
 import os
@@ -14,7 +16,7 @@ while True:
         os.system('cls')
         print(logo)
 
-    print(resources['water'], resources['milk'], resources['coffee'])
+    print('Resources avaliables:', 'Water', resources['water'], 'Milk', resources['milk'], 'Coffee', resources['coffee'])
     if (resources['water'] and resources['milk'] and resources['coffee']) > 0:
         print('Here is the menu:\n')
 
