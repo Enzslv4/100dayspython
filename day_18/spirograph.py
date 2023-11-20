@@ -7,10 +7,6 @@ timmy.speed(0)
 screen = Screen()
 screen.colormode(255)
 
-def circle():
-    for i in range(72):
-        timmy.forward(20)
-        timmy.right(5)
 
 def movement():
 
@@ -20,7 +16,7 @@ def movement():
         'b': 0
     }
 
-    while True:
+    for _ in range(80):
 
         for key in colors.keys():
             color = random.randint(0, 255)
@@ -28,8 +24,8 @@ def movement():
 
         timmy.color(colors['r'], colors['g'], colors['b'])
 
-        circle()
-        timmy.right(10)
+        timmy.circle(200)
+        timmy.right(5)
 
 
 movement()
