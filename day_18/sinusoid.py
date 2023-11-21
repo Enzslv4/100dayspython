@@ -11,18 +11,6 @@ screen.colormode(255)
 
 pi = math.pi
 
-# def sen(angle):
-#     result = (pi * angle) / 180
-#     # if result > 1:
-#     #     divisor = math.floor(result / 1)
-#     #     result = result - 1 * divisor
-#     # elif result < -1:
-#     #     result *= -1
-#     #     divisor = math.floor(result / 1)
-#     #     result = (-1) * (result - 1 * divisor)
-#     return result
-
-
 def movement():
     ang = 30 # the initial angle
     a = 100 # amplitude
@@ -36,7 +24,7 @@ def movement():
     
     while True:
         t += 1
-        inside_sen = (k*x) - (omega * t) + ang # everything that goes inside de sen func
+        inside_sen = (k*x) - (omega * t) + ang # everything that goes inside the sen func
         if inside_sen > 360:
             divisor = math.floor(inside_sen / 360)
             inside_sen = inside_sen - 360 * divisor
