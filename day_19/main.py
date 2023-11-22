@@ -18,39 +18,28 @@ positions = {
     'gray': [splinter, '', 'gray']
 }
 
+game_logic()
+condition = True
 
-while True:
-
-    condition = True
-    
-    game_logic()
-
-
-    for _ in positions.keys():
-        positions[_][1] = (positions[_][0]).pos()
-
+while condition:
 
     for i in positions.keys():
+        positions[i][1] = (positions[i][0]).pos()
+        set_speed(positions[i][0], condition)
         if int(positions[i][1][0]) >= 450:
             condition = False
             winner = positions[i]
             if positions[i] == bet:
-                screen.title(f'You Win!! {bet} is the winner!')
+                screen.title(f'You Won!! {bet} is the winner!')
             else:
-                screen.title(f'You Lose!! {positions[i][2]} is the winner!')
+                screen.title(f'You Lost!! {positions[i][2]} is the winner!')
             
             restart_game = screen.textinput('Race Finished!!','Do you wanna restart the game? "y"es or "n"o: ')
             if restart_game == 'y':
-                time.sleep(2)
+                condition = True
+                game_logic()
             else:
                 screen.bye()
-
-    for k in positions.keys():
-        set_speed(positions[k][0], condition)
-
-
-    if condition == False:
-        break
 
 
 screen.mainloop()

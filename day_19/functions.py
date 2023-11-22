@@ -12,7 +12,6 @@ splinter = Turtle()
 splinter.color('gray')
 splinter.shape('arrow')
 splinter.penup()
-splinter.setpos(-400, -300)
 
 turtles = {
     'race_finish': {
@@ -53,6 +52,10 @@ turtles = {
 
 
 def game_logic():
+
+    splinter.setpos(-400, -300)
+    
+
     def turtle_racers(turtles):
         '''Easy way to make the racers'''
         
@@ -80,7 +83,6 @@ def game_logic():
     turtle_racers(turtles['michelangelo'])
     turtle_racers(turtles['donatello'])
     turtle_racers(turtles['raphael'])
-
 
 
 def set_speed(turtle, x):
