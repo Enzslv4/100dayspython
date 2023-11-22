@@ -13,10 +13,12 @@ screen = Screen()
 screen.colormode(255)
 
 def movement():
-
+    
+    timmy.hideturtle()
     timmy.setheading(210)
     timmy.forward(300)
     timmy.setheading(0)
+    
 
     colors = {
         'r': 0,
@@ -50,7 +52,6 @@ def movement():
             timmy.forward(50)
             timmy.right(90)
             turn_state = True
-
 
 
 movement()
