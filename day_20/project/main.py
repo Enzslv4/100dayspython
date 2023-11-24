@@ -1,5 +1,8 @@
-from turtle import Turtle, Screen
+from turtle import Screen
 from time import sleep
+from snake import Snake
+from food import Food
+from scoreboard import ScoreBoard
 
 screen = Screen()
 screen.listen()
@@ -8,32 +11,41 @@ screen.setup(600, 600)
 screen.bgcolor('black')
 screen.tracer(0)
 
-starting_positions = [(0,0), (-20,0), (-40,0)]
+snake = Snake()
+food = Food()
+score = ScoreBoard()
 
-segments = []
-
-for position in starting_positions:
-    
-    new_segment = Turtle('square')
-    new_segment.penup()
-    new_segment.color('white')
-    new_segment.goto(position)
-    segments.append(new_segment)
-    
 
 game_is_on = True
 
 
 while game_is_on:
     screen.update()
-    sleep(0.1)
+    sleep(.1)
 
-    for seg_num in range(len(segments) - 1, 0, -1):
-        new_x = segments[seg_num - 1].xcor()
-        new_y = segments[seg_num - 1].ycor()
-        segments[seg_num].goto(new_x, new_y)
-    segments[0].forward(20)
-    
+    snake.move()
+
+    screen.onkeypress(snake.left, 'a')
+    screen.onkeypress(snake.right, 'd')
+    screen.onkeypress(snake.up, 'w')
+    screen.onkeypress(snake.down, 's')
+    screen.onkeypress(snake.increase_size, 'c')
+
+    if snake.head.distance(food) < 15:
+        snake.increase_size()
+        food.goto_new_pos()
+        score.add_num()
+
+
+    if snake.is_on_borders() == True:
+        score.game_over(f'You hit a wall!')
+        score.num = 0
+        break
+
+    if snake.hits_it_self():
+        score.game_over(f'You hit your own tail!')
+        score.num = 0
+        break
         
 
 
