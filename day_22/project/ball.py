@@ -1,7 +1,8 @@
 from turtle import Turtle
 import random
 
-DIRECTION = random.randrange(60, 150)
+x_dir = random.randint(30, 90)
+y_dir = random.randint(30, 90)
 
 class Ball(Turtle):
     def __init__(self):
@@ -9,24 +10,24 @@ class Ball(Turtle):
         self.shape('square')
         self.color('white')
         self.penup()
-        self.seth(DIRECTION)
+        self.x_move = 10
+        self.y_move = 10
 
 
-    def set_new_heading(self):
-        DIRECTION = random.randrange(60, 150)
-        self.seth(DIRECTION)
+    def move(self):
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
+        self.goto(new_x, new_y)
+
     
     def hits_wall(self):
-        if (self.ycor() >= 380) or (self.ycor() < -380):
-            self.seth(self.heading() - 2 * self.heading())
-        
+        if self.ycor() >= 380 or self.ycor() < -380:
+            self.y_move *= -1
 
-    def hits_player(self, player):
-        if self.distance(player) < 15:
-            self.seth(self.heading() - 2 * self.heading())
+    def hits_player(self):
+            self.x_move *= -1
 
     def gets_out_the_field(self):
-        if (self.xcor() >= 600):
-            return True
-        if (self.xcor() <= -600):
+        if self.xcor() > 600 or self.xcor() < -600:
+            self.x_move *= -1
             return True
