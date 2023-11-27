@@ -3,6 +3,7 @@
 from turtle import Turtle, Screen
 from cars import Cars
 from animal import Animal
+from scoreboard import ScoreBoard
 from random import randrange
 from time import sleep
 
@@ -11,33 +12,41 @@ from time import sleep
 
 screen = Screen()
 screen.listen()
-screen.colormode(255)
 screen.title('Turtle Crossing')
 screen.setup(800, 800)
 screen.tracer(0)
 
-car = Cars()
-turtle = Animal()
-colors = [
-    randrange(0, 255),
-    randrange(0, 255),
-    randrange(0, 255)
-]
 
-# car.color(colors[0], colors[1], colors[2])
+turtle = Animal()
+car = Cars()
+hud = ScoreBoard()
+car.hideturtle()
+
+
 
 game_is_on = True
 
-for _ in range(20):
-    car.create_new_car()
-
-screen.tracer(1)
-
 while game_is_on:
-    sleep(.1)
-    if car.xcor() >= -380 or car.xcor() <= 380:
-        car.move()
+    sleep(.05)
+    screen.onkeypress(turtle.move, 'w')
+    screen.update()
+    car.create_car()
+    car.move()
+    if turtle.ycor() >= 380:
+        car.increase_velocity()
+        hud.add_level()
+        turtle.goto(0,-380)
+
+    for c4r in car.cars:
+        if c4r.distance(turtle) < 20:
+            car.restart_speed()
+            hud.restart_level()
+            game_is_on = False
+            restart_answer = screen.textinput('','Do you wanna restart the game? ')
+            if restart_answer == 'y':
+                turtle.goto(0, -380)
+                game_is_on = True
 
 
 
-screen.mainloop()
+screen.exitonclick()
