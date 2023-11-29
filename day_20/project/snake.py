@@ -12,25 +12,20 @@ TURN_RADIUS = {
 
 class Snake:
 
-
     def __init__(self):
-
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
 
     def create_snake(self):
-        
         for position in STARTING_POSITIONS:
-                
-                new_segment = Turtle('square')
-                new_segment.penup()
-                new_segment.color('white')
-                new_segment.goto(position)
-                self.segments.append(new_segment)
+            new_segment = Turtle('square')
+            new_segment.penup()
+            new_segment.color('white')
+            new_segment.goto(position)
+            self.segments.append(new_segment)
 
     def move(self):
-        
         for seg_num in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
@@ -39,7 +34,6 @@ class Snake:
         self.segments[0].forward(MOVE_DISTANCE)
         
     def left(self):
-
         if self.head.heading() != TURN_RADIUS['right']:
             for seg_num in range(len(self.segments) - 1, 0, -1):
                 new_x = self.segments[seg_num - 1].xcor()
@@ -48,7 +42,6 @@ class Snake:
                 self.segments[0].seth(TURN_RADIUS['left'])
 
     def right(self):
-
         if self.head.heading() != TURN_RADIUS['left']:
             for seg_num in range(len(self.segments) - 1, 0, -1):
                 new_x = self.segments[seg_num - 1].xcor()
@@ -56,8 +49,7 @@ class Snake:
                 self.segments[seg_num].goto(new_x, new_y)
                 self.segments[0].seth(TURN_RADIUS['right'])
 
-    def up(self):
-         
+    def up(self): 
          if self.head.heading() != TURN_RADIUS['down']:
             for seg_num in range(len(self.segments) - 1, 0, -1):
                 new_x = self.segments[seg_num - 1].xcor()

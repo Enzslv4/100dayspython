@@ -38,15 +38,15 @@ while game_is_on:
 
 
     if snake.is_on_borders() == True:
-        score.game_over(f'You hit a wall!')
-        score.num = 0
+        score.reset(f'You hit a wall!')
+        score.score = 0
         break
 
     if snake.hits_it_self():
-        score.game_over(f'You hit your own tail!')
-        score.num = 0
+        score.reset(f'You hit your own tail!')
+        score.score = 0
         break
         
 
 
-screen.mainloop()
+screen.exitonclick()
