@@ -5,13 +5,16 @@
 
 # or use 'with' command to open the file only while doing something for you
 
-with open('day_24/project/test.txt') as file:
-    content = file.read()
-    print(content)
+PLACEHOLDER = '[name]'
 
-with open('day_24/project/test.txt', 'a') as file:
-    file.write('\neu gosto de sorvete')
 
-with open('day_24/project/test.txt') as file:
-    content = file.read()
-    print(content)
+with open('day_24/project/names.txt') as names:
+    names_list = names.readlines()
+
+with open('day_24/project/mail.txt') as mail_text:
+    mail_content = mail_text.read()
+    for name in names_list:
+        new_name = name.strip()
+        new_mail = mail_content.replace(PLACEHOLDER, new_name)
+        with open(f'day_24/project/letter_to_{new_name}.txt', 'w') as mail_txt:
+            mail_txt.write(new_mail)
