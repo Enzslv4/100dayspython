@@ -1,28 +1,28 @@
 state,x,y
-Acre,,
-Alagoas,,
-Amapa,,
-Amazonas,,
-Bahia,,
-Ceara,,
-Distrito Federal,,
-Espirito Santo,,
-Goias,,
-Maranhao,,
-Mato Grosso,,
-Mato Grosso do Sul,,
-Minas Gerais,,
-Para,,
-Paraiba,,
-Parana,,
-Pernambuco,,
-Piaui,,
-Rio de Janeiro,,
-Rio Grande do Norte,,
-Rio Grande do Sul,,
-Rondonia,,
-Roraima,,
-Santa Catarina,,
-Sao Paulo,,
-Sergipe,,
-Tocantins,,
+acre,-350,90
+alagoas,460,80
+amapa,60,360
+amazonas,-230,200
+bahia,300,30
+ceara,350,200
+DF,145,-45
+espirito santo,370,-150
+goias,100,-40
+maranhao,200,200
+mato grosso,-50,0
+mato grosso do sul,0,-150
+minas gerais,220,-100
+para,20,200
+paraiba,435,145
+parana,60,-250
+pernambuco,410,115
+piaui,270,140
+rio de janeiro,330,-210
+rio grande do norte,460,200
+rio grande do sul,20,-370
+rondonia,-200,80
+roraima,-170,370
+santa catarina,180,-330
+sao paulo,120,-180
+sergipe,430,50
+tocantins,140,80
