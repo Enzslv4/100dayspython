@@ -24,11 +24,8 @@ while len(all_states) < 27:
         t.set_pos(int(state_data.x.item()), int(state_data.y.item()), state_data.state.item())
 
     if add_state == 'exit':
-        
-        for state in states_list:
-            if state not in all_states:
-                missing_states.append(state)
+        missing_states = [state for state in all_states if state not in states_list]
+        states_to_learn = pandas.DataFrame(missing_states)
+        print(states_to_learn.state)
+        states_to_learn.to_csv('day_25/start_game/remaining_states.csv')
         break
-
-states_to_learn = pandas.DataFrame(missing_states)
-states_to_learn.to_csv('day_25/start_game/remaining_states.csv')
