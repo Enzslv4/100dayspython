@@ -48,14 +48,17 @@ def add_info():
             try:
                 with open('day_30/project/infos.json', 'r') as file:
                     data = json.load(file)
-                with open('day_30/project/infos.json', 'w') as file:
-                    json.dump(new_data, file, indent=4)
             except FileNotFoundError:
                 with open('day_30/project/infos.json', 'w') as file:
-                    data = json.load(file)
-                    json.dump(data, file, indent=4)  
-            finally:
+                    json.dump(new_data, file, indent=4) 
+            else:
+                #Updating old data with new data
                 data.update(new_data)
+
+                with open("day_30/solution/data.json", "w") as data_file:
+                    #Saving updated data
+                    json.dump(data, data_file, indent=4)
+            finally:
                 website_input.delete(0, END)
                 pasw_input.delete(0, END)
 
@@ -74,12 +77,18 @@ def search():
     if website == '':
         messagebox.showwarning(title='Data Status', message='You left empty spaces! Please fill them.')
     else:
-        with open('day_30/project/infos.json') as file:
-            data = json.load(file)
+        try:
+            with open('day_30/project/infos.json', 'r') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            messagebox.showinfo(title="Error", message="No Data File Found.")
+        else:
             if website in data:
                 email = data[website]['email']
                 pasw = data[website]['password']
                 messagebox.showinfo(title=website, message=f'Email: {email}\nPassword: {pasw}')
+            else:
+                messagebox.showwarning(title='Oops!', message=f'{website} was not found in our data!')
 
 
 # ---------------------------- UI SETUP ------------------------------- #
