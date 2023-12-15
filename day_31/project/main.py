@@ -6,10 +6,13 @@ import random
 BACKGROUND_COLOR = "#B1DDC6"
 LANGUAGES = ['English', 'French']
 
-#------------------------------------  GETING DATA  ------------------------------------#
+#------------------------------------  GETTING DATA  ------------------------------------#
 
+try:
+    data = read_csv('day_31/project/data/learned_cards.csv')
+except FileNotFoundError:
+    data = read_csv('day_31/project/data/french_words.csv')
 
-data = read_csv('day_31/project/data/french_words.csv')
 words_data = data.to_dict(orient="records")
 
 
@@ -19,26 +22,39 @@ words_data = data.to_dict(orient="records")
 current_card = {}
 
 def next_card():
-    canva.itemconfig(bg_img, image=card_front_image)
-    canva.itemconfig(language_text, text=LANGUAGES[1])
+    global current_card, flip_timer
+    window.after_cancel(flip_timer)
+    canvas.itemconfig(bg_img, image=card_front_image)
+    canvas.itemconfig(language_text, text=LANGUAGES[1], fill='black')
     current_card = random.choice(words_data)
-    canva.itemconfig(word_text, text=current_card[LANGUAGES[1]])
-    print(current_card)
+    canvas.itemconfig(word_text, text=current_card[LANGUAGES[1]], fill='black')
+    flip_timer = window.after(3000, flip_card)
     
 
 def flip_card():
-    canva.itemconfig(language_text, text=LANGUAGES[0])
-    canva.itemconfig(word_text, text=current_card[LANGUAGES[0]])
-    canva.itemconfig(bg_img, image=card_back_image)
+    canvas.itemconfig(language_text, text=LANGUAGES[0], fill='white')
+    canvas.itemconfig(word_text, text=current_card[LANGUAGES[0]], fill='white')
+    canvas.itemconfig(bg_img, image=card_back_image)
+
+def is_known():
+    try:
+        if len(words_data) > 0:
+            global current_card
+            words_data.remove(current_card)
+            print(words_data)
+            next_card()
+            known_cards = DataFrame(words_data)
+            known_cards.to_csv('day_31/project/data/learned_cards.csv', index=False)
+    except IndexError:
+        print('No more words')
 
 
 def missed():
-
-    next_card()
-    
-
-def passed():
-    next_card()
+    try:
+        if len(words_data) > 0:
+            next_card()
+    except IndexError:
+        print('No more words')
 
 
 #------------------------------------  UI SETUP  ------------------------------------#
@@ -47,7 +63,7 @@ def passed():
 window = Tk()
 window.title('Flashy')
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
-window.after(3000, flip_card)
+flip_timer = window.after(3000, flip_card)
 
 
 # Images
@@ -58,16 +74,16 @@ wrong_image = PhotoImage(file='day_31/project/images/wrong.png')
 
 
 # Canvas
-canva = Canvas(width=800, height=526, highlightthickness=0, bg=BACKGROUND_COLOR)
-bg_img = canva.create_image(400, 263, image=card_front_image)
-language_text = canva.create_text(400, 150, text='title', fill='black', font=('Arial', 20, 'italic'))
-word_text = canva.create_text(400, 253, text='word', fill='black', font=('Arial', 40, 'bold'))
-canva.grid(column=0, row=0, columnspan=2)
+canvas = Canvas(width=800, height=526, highlightthickness=0, bg=BACKGROUND_COLOR)
+bg_img = canvas.create_image(400, 263, image=card_front_image)
+language_text = canvas.create_text(400, 150, text='title', fill='black', font=('Arial', 20, 'italic'))
+word_text = canvas.create_text(400, 253, text='word', fill='black', font=('Arial', 40, 'bold'))
+canvas.grid(column=0, row=0, columnspan=2)
 next_card()
 
 
 # Buttons
-ok_button = Button(image=right_image, command=passed, highlightthickness=0, width=100, height=100)
+ok_button = Button(image=right_image, command=is_known, highlightthickness=0, width=100, height=100)
 ok_button.grid(column=1, row=1)
 
 miss_button = Button(image=wrong_image, command=missed, highlightthickness=0, width=100, height=100)
