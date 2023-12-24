@@ -8,10 +8,7 @@ LANGUAGES = ['English', 'French']
 
 #------------------------------------  GETTING DATA  ------------------------------------#
 
-try:
-    data = read_csv('day_31/project/data/learned_cards.csv')
-except FileNotFoundError:
-    data = read_csv('day_31/project/data/french_words.csv')
+data = read_csv('day_31/project/data/french_words.csv')
 
 words_data = data.to_dict(orient="records")
 
@@ -22,11 +19,15 @@ words_data = data.to_dict(orient="records")
 current_card = {}
 
 def next_card():
-    global current_card, flip_timer
+    global current_card, flip_timer, words_data
     window.after_cancel(flip_timer)
     canvas.itemconfig(bg_img, image=card_front_image)
     canvas.itemconfig(language_text, text=LANGUAGES[1], fill='black')
-    current_card = random.choice(words_data)
+    try:
+        current_card = random.choice(words_data)
+    except IndexError:
+        data = read_csv('day_31/project/data/french_words.csv')
+        words_data = data.to_dict(orient="records")
     canvas.itemconfig(word_text, text=current_card[LANGUAGES[1]], fill='black')
     flip_timer = window.after(3000, flip_card)
     
@@ -41,7 +42,6 @@ def is_known():
         if len(words_data) > 0:
             global current_card
             words_data.remove(current_card)
-            print(words_data)
             next_card()
             known_cards = DataFrame(words_data)
             known_cards.to_csv('day_31/project/data/learned_cards.csv', index=False)

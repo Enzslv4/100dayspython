@@ -1,11 +1,8 @@
 from tkinter import *
 import requests
 
-# my position -12.953997, -38.459677
-
 
 def get_quote():
-    pass
     response = requests.get(url='https://api.kanye.rest/')
     response.raise_for_status()
     data = response.json()
