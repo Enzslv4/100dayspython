@@ -15,7 +15,7 @@ def send_sms():
     message = client.messages.create(
             from_='+14803861954',
             body=f'{text}',
-            to='+5571997300138'
+            to='MY NUMBER'      # Actually not working because of obvious reasons
         )
     print(message.status)
 
