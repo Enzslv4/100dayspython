@@ -4,6 +4,7 @@ from datetime import datetime
 USERNAME = 'enzslv4'
 TOKEN = '8rtBwkCKiP'
 GRAPH_ID = 'graph1'
+SHEETY_API_KEY = 'LQmamR9ewL9PWMWQgZIWQMstbgw5OkT8'
 
 today = datetime.now()
 
