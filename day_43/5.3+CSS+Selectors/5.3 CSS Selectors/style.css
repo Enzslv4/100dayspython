@@ -1,0 +1,12 @@
+p {
+  color: red;
+}
+
+ol {
+  margin-left: -40px;
+  margin-top: -20px;
+  list-style-position: inside;
+}
+
+
+/* Write your CSS below, don't change the rules above. */
