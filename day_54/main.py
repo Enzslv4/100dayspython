@@ -1,8 +1,22 @@
-# using flask
-from flask import Flask
+import time
 
-app = Flask(__name__)
+def calculate(function):
+    time.sleep(2)
+    function()
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+@calculate
+def add():
+    result = 2 + 1
+    print(result)
+
+def subtract(n1, n2):
+    return n1 - n2
+
+def multiply(n1, n2):
+    return n1 * n2
+
+def divide(n1, n2):
+    return n1 / n2
+
+#Functions are first-class objects, can be passed around as arguments e.g. int/string/float etc.
+
