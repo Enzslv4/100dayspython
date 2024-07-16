@@ -17,6 +17,7 @@
   </div>
 </header>
 <!-- Main Content-->
+<!-- Main Content-->
 <div class="container px-4 px-lg-5">
   <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -29,10 +30,13 @@
         </a>
         <p class="post-meta">
           Posted by
-          <a href="#">{{post.author}}</a>
+          <!-- post.author is now a User object -->
+          <a href="#">{{post.author.name}}</a>
           on {{post.date}}
-          <!-- TODO: Only show delete button if user id is 1 (admin user) -->
+          <!-- Only show delete button if user id is 1 (admin user) -->
+          {% if current_user.id == 1: %}
           <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+          {% endif %}
         </p>
       </div>
       <!-- Divider-->
@@ -40,7 +44,8 @@
       {% endfor %}
 
       <!-- New Post -->
-      <!-- TODO: Only show Create Post button if user id is 1 (admin user) -->
+      <!-- Only show Create Post button if user id is 1 (admin user) -->
+      {% if current_user.id == 1: %}
       <div class="d-flex justify-content-end mb-4">
         <a
           class="btn btn-primary float-right"
@@ -48,6 +53,7 @@
           >Create New Post</a
         >
       </div>
+      {% endif %}
 
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4">
