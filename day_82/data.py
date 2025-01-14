@@ -1,5 +1,5 @@
 startText = '''
-    MORSE TRANSLATOR\n\n
+                                MORSE TRANSLATOR\n\n
 '''
 
 morseCharacters = {
