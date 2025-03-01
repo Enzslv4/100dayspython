@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter Characters</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        .character { background: white; padding: 10px; margin: 10px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        img { width: 100px; height: 100px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Harry Potter Characters</h1>
+        <div id="characters"></div>
+    </div>
+
+    <script>
+        fetch("/characters")
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("characters");
+                data.forEach(character => {
+                    const div = document.createElement("div");
+                    div.classList.add("character");
+                    div.innerHTML = `
+                        <img src="${character.image}" alt="${character.name}">
+                        <h2>${character.name}</h2>
+                        <p>House: ${character.house || 'Unknown'}</p>
+                        <p>Actor: ${character.actor}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(error => console.error("Error loading characters:", error));
+    </script>
+</body>
+</html>
