@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Color Analysis</title></head>
+<body>
+    <h1>Top 10 Colors</h1>
+    <img src="{{ url_for('static', filename='uploads/' + image) }}" width="300"><br>
+    <ul>
+        {% for color, count in colors %}
+            <li style="background-color: rgb{{ color }}; padding: 10px;">RGB {{ color }} - {{ count }} times</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Upload another image</a>
+</body>
+</html>
