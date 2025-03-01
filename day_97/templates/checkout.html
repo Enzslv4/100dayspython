@@ -1,0 +1,10 @@
+<form action="{{ url_for('checkout') }}" method="post">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ app.config['STRIPE_PUBLIC_KEY'] }}"
+            data-amount="{{ amount_in_cents }}"
+            data-name="Your Store"
+            data-description="Order #{{ order.id }}"
+            data-image="https://example.com/logo.png"
+            data-currency="usd">
+    </script>
+</form>
