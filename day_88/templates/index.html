@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafés</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Cafés</h1>
+    <div class="cafes-list">
+        <ul id="cafes-list"></ul>
+    </div>
+    
+    <h2>Adicionar Novo Café</h2>
+    <form id="add-cafe-form">
+        <input type="text" id="name" placeholder="Nome do Café" required>
+        <input type="text" id="location" placeholder="Localização" required>
+        <input type="number" id="coffee_price" placeholder="Preço do Café" required>
+        <button type="submit">Adicionar Café</button>
+    </form>
+
+    <script>
+        // Carregar Cafés
+        function loadCafes() {
+            $.get("/cafes", function(cafes) {
+                $("#cafes-list").empty();
+                cafes.forEach(cafe => {
+                    $("#cafes-list").append(`
+                        <li>
+                            <strong>${cafe.name}</strong> - ${cafe.location} - R$ ${cafe.coffee_price}
+                            <button onclick="deleteCafe(${cafe.id})">Deletar</button>
+                        </li>
+                    `);
+                });
+            });
+        }
+
+        // Adicionar Café
+        $("#add-cafe-form").submit(function(event) {
+            event.preventDefault();
+            const newCafe = {
+                name: $("#name").val(),
+                location: $("#location").val(),
+                coffee_price: $("#coffee_price").val()
+            };
+
+            $.post("/add_cafe", JSON.stringify(newCafe), function(response) {
+                alert(response.message);
+                loadCafes();
+                $("#name").val("");
+                $("#location").val("");
+                $("#coffee_price").val("");
+            }).fail(function() {
+                alert("Erro ao adicionar café.");
+            });
+        });
+
+        // Deletar Café
+        function deleteCafe(cafeId) {
+            $.ajax({
+                url: `/delete_cafe/${cafeId}`,
+                type: "DELETE",
+                success: function(response) {
+                    alert(response.message);
+                    loadCafes();
+                },
+                error: function() {
+                    alert("Erro ao excluir café.");
+                }
+            });
+        }
+
+        // Inicializar a página
+        $(document).ready(function() {
+            loadCafes();
+        });
+    </script>
+</body>
+</html>
