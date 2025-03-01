@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <form id="task-form">
+        <input type="text" id="task-input" placeholder="Adicionar nova tarefa..." required>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <ul id="task-list"></ul>
+
+    <script>
+        // Carregar Tarefas do Banco de Dados
+        function loadTasks() {
+            $.get("/tasks", function(tasks) {
+                $("#task-list").empty();
+                tasks.forEach(task => {
+                    $("#task-list").append(`
+                        <li class="${task.completed ? 'completed' : ''}">
+                            <span onclick="toggleTask(${task.id})">${task.description}</span>
+                            <button onclick="deleteTask(${task.id})">❌</button>
+                        </li>
+                    `);
+                });
+            });
+        }
+
+        // Adicionar Nova Tarefa
+        $("#task-form").submit(function(event) {
+            event.preventDefault();
+            const newTask = { description: $("#task-input").val() };
+            $.post("/add_task", JSON.stringify(newTask), function(response) {
+                alert(response.message);
+                loadTasks();
+                $("#task-input").val("");
+            });
+        });
+
+        // Marcar Tarefa como Concluída
+        function toggleTask(taskId) {
+            $.ajax({
+                url: `/toggle_task/${taskId}`,
+                type: "PUT",
+                success: function(response) {
+                    loadTasks();
+                }
+            });
+        }
+
+        // Deletar Tarefa
+        function deleteTask(taskId) {
+            $.ajax({
+                url: `/delete_task/${taskId}`,
+                type: "DELETE",
+                success: function(response) {
+                    alert(response.message);
+                    loadTasks();
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadTasks();
+        });
+    </script>
+</body>
+</html>
